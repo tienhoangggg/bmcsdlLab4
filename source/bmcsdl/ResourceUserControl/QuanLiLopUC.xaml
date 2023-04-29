@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="bmcsdl.ResourceUserControl.QuanLiLopUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:bmcsdl.ResourceUserControl"
+             Name="ucQLLH"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView Grid.Row="0"
+  ItemsSource="{Binding listNV}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn
+        DisplayMemberBinding="{Binding manv}"
+        Header="Mã Nhân Viên" />
+                        <GridViewColumn
+        DisplayMemberBinding="{Binding HoTen}"
+        Header="Họ Tên" />
+                        <GridViewColumn
+        DisplayMemberBinding="{Binding email}"
+        Header="Email" />
+                        <GridViewColumn
+        DisplayMemberBinding="{Binding luong}"
+        Header="Lương" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="50 0 0 0">Mã Nhân Viên</TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="2" Margin="50 0 0 0">Họ Tên</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="50 0 0 0">Email</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="2" Margin="50 0 0 0">Lương</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="50 0 0 0">Tên Đăng Nhập</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="2" Margin="50 0 0 0">Mật Khẩu</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0" Margin="50 0 0 50">Public Key</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding txtManv}"/>
+                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding txtHoten}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding txtEmail}"/>
+                <TextBox Grid.Row="1" Grid.Column="3" Text="{Binding txtLuong}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding txtTendn}"/>
+                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding txtMatkhau}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" MaxWidth="150" Margin="0 0 0 50" Text="{Binding txtPublicKey}"/>
+                <Button Grid.Row="3" Grid.Column="2" Margin="0 20 0 30"
+    Style="{StaticResource MaterialDesignRaisedAccentButton}"
+    Width="100"
+    ToolTip="Resource name: MaterialDesignRaisedAccentButton"
+                    Command="{Binding addNV}">
+                    ADD
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="40 20 0 0">Mã NV</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="40 20 0 0">Private Key</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" MinWidth="150" Text="{Binding txtManvDec}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" MaxWidth="150" Text="{Binding txtPrivateKey}"/>
+                <Button Grid.Row="2" Grid.Column="1" Margin="0 20 20 0" Content="Decrypt" Command="{Binding cmdDecrypt}"/>
+            </Grid>
+            <ItemsControl Grid.Row="1"
+                          Name="listlophoc"
+                          ItemsSource="{Binding Path=listLop,Mode=TwoWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <materialDesign:Card
+  Background="{DynamicResource PrimaryHueDarkForegroundBrush}"
+  MinWidth="500"
+  Padding="8"
+  UniformCornerRadius="6">
+                            <Grid Margin="0 10 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding malop}" Foreground="YellowGreen"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding tenlop}"/>
+                                </StackPanel>
+                                <Button Grid.Column="1"
+                                Margin="10 0 0 0"
+  Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+  ToolTip="MaterialDesignFloatingActionMiniLightButton"
+                                Command="{Binding Path=DataContext.detail, ElementName=ucQLLH}"
+                                CommandParameter="{Binding malop}">
+                                    <materialDesign:PackIcon
+    Kind="FileDocumentBoxMultipleOutline"
+    Height="10"
+    Width="10"/>
+                                </Button>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</UserControl>
